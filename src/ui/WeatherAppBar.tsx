@@ -10,8 +10,11 @@ import CloudIcon from '@mui/icons-material/Cloud'
 import SearchIcon from '@mui/icons-material/Search'
 import { useWeatherDispatch, useWeatherSelector } from '../state/hooks'
 import { Autocomplete } from '@mui/material'
-import { addLocation, clearSearchResults, updateSearchQuery } from '../state/actions'
-
+import {
+  addLocation,
+  clearSearchResults,
+  updateSearchQuery,
+} from '../state/actions'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -48,31 +51,34 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '20ch',
     '&:focus': {
-        width: '40ch',
+      width: '40ch',
     },
   },
 }))
 
 export default function WeatherAppBar({
-    drawerWidth,
+  drawerWidth,
 }: {
-    drawerWidth: number
+  drawerWidth: number
 }) {
-  const searchResults = useWeatherSelector(state => state.search.results)
+  const searchResults = useWeatherSelector((state) => state.search.results)
   const dispatch = useWeatherDispatch()
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: `${drawerWidth}px`,
-      }}>
+      <AppBar
+        position='static'
+        sx={{
+          width: `calc(100% - ${drawerWidth}px)`,
+          marginLeft: `${drawerWidth}px`,
+        }}
+      >
         <Toolbar>
           <CloudIcon />
           <Typography
-            variant="h6"
+            variant='h6'
             noWrap
-            component="div"
+            component='div'
             sx={{ flexGrow: 1, ml: 1, display: { xs: 'none', sm: 'block' } }}
           >
             Weather~
@@ -85,10 +91,18 @@ export default function WeatherAppBar({
               disablePortal
               id='search'
               options={searchResults}
-              getOptionLabel={(option) => `${option.name}, ${option.state ? `${option.state}, ` : ''}${option.country}`}
+              getOptionLabel={(option) =>
+                `${option.name}, ${option.state ? `${option.state}, ` : ''}${option.country}`
+              }
               renderInput={(params) => {
-                const {InputLabelProps, InputProps,...rest} = params;
-                return <StyledInputBase {...InputProps} {...rest} placeholder='Search…' />
+                const { InputLabelProps, InputProps, ...rest } = params
+                return (
+                  <StyledInputBase
+                    {...InputProps}
+                    {...rest}
+                    placeholder='Search…'
+                  />
+                )
               }}
               filterOptions={(x) => x}
               onChange={(e, newValue) => {

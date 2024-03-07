@@ -6,4 +6,3 @@ import type { RootState, AppDispatch } from './store'
 
 export const useWeatherDispatch = () => useDispatch<AppDispatch>()
 export const useWeatherSelector: TypedUseSelectorHook<RootState> = useSelector
-
