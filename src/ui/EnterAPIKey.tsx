@@ -11,35 +11,6 @@ import {
 import { useWeatherDispatch, useWeatherSelector } from '../state/hooks'
 import { assignAPIKey } from '../state/actions'
 
-/*
-        <Box sx={{
-            mt: 5,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 4,
-        }}>
-            <Typography variant="h3">
-                Enter your OpenWeatherMap API key here
-            </Typography>
-            <TextField
-                label="API Key"
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-            />
-            <Button
-                variant="contained"
-                onClick={() => console.log(apiKey)}
-                disabled={!apiKey}
-            >
-                Save and load app
-            </Button>
-            <Typography variant='body1'>
-                {"There's no error checking in the code for the API key, please validate it ahead of time!"}
-            </Typography>
-        </Box>
-*/
 const SimpleDialog = ({ open }: { open: boolean }) => {
   const dispatch = useWeatherDispatch()
   const [apiKey, setApiKey] = useState('')

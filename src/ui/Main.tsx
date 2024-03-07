@@ -47,8 +47,6 @@ const Main = () => {
     dispatch(removeLocation(uid))
   }
 
-  console.warn('weatherItems', weatherItems)
-
   return (
     <Box>
       <WeatherAppBar drawerWidth={drawerWidth} />
