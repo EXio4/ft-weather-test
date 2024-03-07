@@ -13,6 +13,7 @@ export type RA_TriggerLocationUpdate = {
 
 export type RA_AddLocation = {
   type: 'locations/add'
+  kind: string
   uid: string
   location: LocationData
   data?: PureWeatherData
@@ -69,6 +70,7 @@ export const addLocation = (
   data?: PureWeatherData,
 ): RA_AddLocation => ({
   type: 'locations/add',
+  kind: kind,
   uid: uuidv4(),
   location: location,
   data: data,
