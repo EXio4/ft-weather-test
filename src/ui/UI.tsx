@@ -1,6 +1,9 @@
-import { Box, Card, CardContent, CardHeader, Typography } from '@mui/material'
+import { Box, Card, CardContent, CardHeader, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { CurrentWeatherData, WeatherItem, WeatherEntry } from '../types'
+import RefreshIcon from '@mui/icons-material/Refresh'
+import { useWeatherDispatch } from '../state/hooks'
+import { triggerUpdateLocation } from '../state/actions'
 
 const CurrentWeather = ({ data }: { data: CurrentWeatherData }) => {
   return (
@@ -62,12 +65,24 @@ const DailyWeather = ({ data }: { data: WeatherEntry[] }) => {
   )
 }
 
-const LocationInfo = ({ location }: { location: WeatherItem['location'] }) => {
+const LocationInfo = ({ refreshWeather, location }: { refreshWeather: () => void, location: WeatherItem['location'] }) => {
   return (
-    <Box>
-      <Typography variant='h4'>{location.name}</Typography>
-      <Typography variant='h6'>{location.country}</Typography>
-    </Box>
+    <List>
+      <ListItem key='data'
+          secondaryAction={
+            <IconButton edge="end" aria-label="refresh"
+              onClick={refreshWeather}
+            >
+              <RefreshIcon />
+            </IconButton>
+          }
+      >
+        <ListItemText
+          primary={location.name}
+          secondary={`${location.state ? `${location.state}, ` : ''}${location.country}`}
+        />
+      </ListItem>
+    </List>
   )
 }
 
@@ -80,10 +95,17 @@ const LoadingCurrentWeather = () => {
 }
 
 const UI = ({ weather }: { weather: WeatherItem }) => {
+  const dispatch = useWeatherDispatch()
+  const refreshWeather = (uid: string) => {
+    dispatch(triggerUpdateLocation(uid))
+  }
+
   return (
     <Grid container spacing={2}>
       <Grid xs={12} md={6}>
-        <LocationInfo location={weather.location} />
+        <LocationInfo refreshWeather={
+          () => refreshWeather(weather.uid)
+        } location={weather.location} />
       </Grid>
       <Grid xs={12} md={6}>
         <Card

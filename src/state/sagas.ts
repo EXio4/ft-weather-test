@@ -7,6 +7,7 @@ import {
   fork,
   all,
   debounce,
+  throttle,
 } from 'redux-saga/effects'
 import {
   findLocation,
@@ -21,6 +22,7 @@ import {
   PureWeatherData,
   CurrentWeatherData,
   WeatherEntry,
+  WeatherItem,
 } from '../types'
 import {
   RA_AssignAPIKey,
@@ -29,6 +31,7 @@ import {
   updateSearchResults,
   RA_AddLocation,
   updateLocation,
+  RA_TriggerLocationUpdate,
 } from './actions'
 import { ReduxState } from './reducers'
 
@@ -161,10 +164,49 @@ function* handleAddLocation(action: RA_AddLocation) {
   }
 }
 
+function* handleTriggerUpdate(action: RA_TriggerLocationUpdate) {
+  try {
+    const owmKey: string | null = yield select(
+      (state: ReduxState) => state.keys?.openWeatherMap,
+    )
+    if (!owmKey) {
+      console.error('OpenWeatherMap API key not set')
+      return
+    }
+
+    const existingLocation: WeatherItem | undefined = yield select((state: ReduxState) =>
+      state.locations.find((loc) => loc.uid === action.uid),
+    )
+    if (!existingLocation) {
+      // location was deleted while waiting for response or the query was invalid
+      return
+    }
+
+    const weather: WeatherApiResponse = yield call(
+      getWeatherData,
+      owmKey,
+      existingLocation.location.latitude,
+      existingLocation.location.longitude,
+    )
+  
+    yield put(
+      updateLocation(
+        action.uid,
+        null,
+        convertApiResponseToPureWeatherData(weather),
+      ),
+    )
+
+  } catch (err) {
+    console.error('error', err)
+  }
+}
+
 export function* rootSaga() {
   yield all([
     takeLatest('apiKeys/assign', triggerMyLocation),
     debounce(500, 'search/update_query', handleSearchQuery),
     takeEvery('locations/add', handleAddLocation),
+    throttle(5000, 'locations/trigger_update', handleTriggerUpdate),
   ])
 }

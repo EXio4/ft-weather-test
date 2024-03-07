@@ -36,6 +36,12 @@ export type RA_UpdateLocation = {
   data: PureWeatherData
 }
 
+export const TRIGGER_UPDATE_LOCATION: 'locations/trigger_update' = 'locations/trigger_update'
+export type RA_TriggerUpdateLocation = {
+  type: typeof TRIGGER_UPDATE_LOCATION
+  uid: string
+}
+
 export const UPDATE_SEARCH_QUERY: 'search/update_query' = 'search/update_query'
 export type RA_UpdateSearchQuery = {
   type: typeof UPDATE_SEARCH_QUERY
@@ -99,6 +105,11 @@ export const updateLocation = (
   uid: uid,
   location: location === null ? undefined : location,
   data: data,
+})
+
+export const triggerUpdateLocation = (uid: string): RA_TriggerUpdateLocation => ({
+  type: TRIGGER_UPDATE_LOCATION,
+  uid: uid,
 })
 
 export const updateSearchQuery = (query: string): RA_UpdateSearchQuery => ({
