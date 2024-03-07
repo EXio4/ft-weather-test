@@ -7,10 +7,11 @@ import {
 } from './reducers'
 import createSagaMiddleware from 'redux-saga'
 import { rootSaga } from './sagas'
+import { ReduxAction } from './actions'
 
 const sagaMiddleware = createSagaMiddleware()
 
-export const store = configureStore<ReduxState>({
+export const store = configureStore<ReduxState, ReduxAction>({
   reducer: {
     keys: apiKeysReducer,
     locations: locationsReducer,

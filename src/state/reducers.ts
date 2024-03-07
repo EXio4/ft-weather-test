@@ -17,7 +17,7 @@ export type ReduxState = {
 
 export const apiKeysReducer = (
   state: APIKeys | null = null,
-  action: any,
+  action: ReduxAction,
 ): APIKeys | null => {
   switch (action.type) {
     case 'apiKeys/assign':
@@ -29,7 +29,7 @@ export const apiKeysReducer = (
 
 export const locationsReducer = (
   state: WeatherItem[] = [],
-  action: any,
+  action: ReduxAction,
 ): WeatherItem[] => {
   switch (action.type) {
     case 'locations/add':
@@ -65,7 +65,7 @@ export const searchReducer = (
     query: '',
     results: [],
   },
-  action: any,
+  action: ReduxAction,
 ): { query: string; results: LocationData[] } => {
   switch (action.type) {
     case 'search/update_query':

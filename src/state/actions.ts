@@ -1,53 +1,62 @@
 import { v4 as uuidv4 } from 'uuid'
 import { LocationType, LocationData, PureWeatherData } from '../types'
 
+export const ASSIGN_API_KEY: 'apiKeys/assign' = 'apiKeys/assign'
 export type RA_AssignAPIKey = {
-  type: 'apiKeys/assign'
+  type: typeof ASSIGN_API_KEY
   openWeatherMap: string
 }
 
+export const TRIGGER_LOCATION_UPDATE: 'locations/update' = 'locations/update'
 export type RA_TriggerLocationUpdate = {
-  type: 'locations/update'
+  type: typeof TRIGGER_LOCATION_UPDATE
   uid: string
 }
 
+export const ADD_LOCATION: 'locations/add' = 'locations/add'
 export type RA_AddLocation = {
-  type: 'locations/add'
-  kind: string
+  type: typeof ADD_LOCATION
+  kind: LocationType
   uid: string
   location: LocationData
   data?: PureWeatherData
 }
 
+export const REMOVE_LOCATION: 'locations/remove' = 'locations/remove'
 export type RA_RemoveLocation = {
-  type: 'locations/remove'
+  type: typeof REMOVE_LOCATION
   uid: string
 }
 
+export const UPDATE_LOCATION: 'locations/update' = 'locations/update'
 export type RA_UpdateLocation = {
-  type: 'locations/update'
+  type: typeof UPDATE_LOCATION
   uid: string
   location?: LocationData
   data: PureWeatherData
 }
 
+export const UPDATE_SEARCH_QUERY: 'search/update_query' = 'search/update_query'
 export type RA_UpdateSearchQuery = {
-  type: 'search/update_query'
+  type: typeof UPDATE_SEARCH_QUERY
   query: string
 }
 
+export const UPDATE_SEARCH_RESULTS: 'search/update_results' = 'search/update_results'
 export type RA_UpdateSearchResults = {
-  type: 'search/update_results'
+  type: typeof UPDATE_SEARCH_RESULTS
   results: LocationData[]
 }
 
+export const SELECT_SEARCH_RESULT: 'search/select_result' = 'search/select_result'
 export type RA_SelectSearchResult = {
-  type: 'search/select_result'
+  type: typeof SELECT_SEARCH_RESULT
   result: LocationData
 }
 
+export const CLEAR_SEARCH_RESULTS: 'search/clear_results' = 'search/clear_results'
 export type RA_ClearSearchResults = {
-  type: 'search/clear_results'
+  type: typeof CLEAR_SEARCH_RESULTS
 }
 
 export type ReduxAction =
@@ -60,7 +69,7 @@ export type ReduxAction =
   | RA_ClearSearchResults
 
 export const assignAPIKey = (openWeatherMap: string): RA_AssignAPIKey => ({
-  type: 'apiKeys/assign',
+  type: ASSIGN_API_KEY,
   openWeatherMap: openWeatherMap,
 })
 
@@ -69,7 +78,7 @@ export const addLocation = (
   location: LocationData,
   data?: PureWeatherData,
 ): RA_AddLocation => ({
-  type: 'locations/add',
+  type: ADD_LOCATION,
   kind: kind,
   uid: uuidv4(),
   location: location,
@@ -77,7 +86,7 @@ export const addLocation = (
 })
 
 export const removeLocation = (uid: string): RA_RemoveLocation => ({
-  type: 'locations/remove',
+  type: REMOVE_LOCATION,
   uid: uid,
 })
 
@@ -86,24 +95,24 @@ export const updateLocation = (
   location: LocationData | null,
   data: PureWeatherData,
 ): RA_UpdateLocation => ({
-  type: 'locations/update',
+  type: UPDATE_LOCATION,
   uid: uid,
   location: location === null ? undefined : location,
   data: data,
 })
 
 export const updateSearchQuery = (query: string): RA_UpdateSearchQuery => ({
-  type: 'search/update_query',
+  type: UPDATE_SEARCH_QUERY,
   query: query,
 })
 
 export const updateSearchResults = (
   results: LocationData[],
 ): RA_UpdateSearchResults => ({
-  type: 'search/update_results',
+  type: UPDATE_SEARCH_RESULTS,
   results: results,
 })
 
 export const clearSearchResults = (): RA_ClearSearchResults => ({
-  type: 'search/clear_results',
+  type: CLEAR_SEARCH_RESULTS,
 })
