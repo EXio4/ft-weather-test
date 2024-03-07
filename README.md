@@ -13,7 +13,7 @@ Simple weather app.
 
 * You are asked at start-up for your OpenWeatherMap API key
 
-![screenshot of web app asking api key prompt](docs/S1_InsertAPIKey.png)
+![screenshot of web app asking api key prompt](docs/S1_EnterAPIKey.png)
 
 * You will be dropped into the main UI - your current location will be guessed and added to the list
 
