@@ -36,7 +36,8 @@ export type RA_UpdateLocation = {
   data: PureWeatherData
 }
 
-export const TRIGGER_UPDATE_LOCATION: 'locations/trigger_update' = 'locations/trigger_update'
+export const TRIGGER_UPDATE_LOCATION: 'locations/trigger_update' =
+  'locations/trigger_update'
 export type RA_TriggerUpdateLocation = {
   type: typeof TRIGGER_UPDATE_LOCATION
   uid: string
@@ -48,19 +49,22 @@ export type RA_UpdateSearchQuery = {
   query: string
 }
 
-export const UPDATE_SEARCH_RESULTS: 'search/update_results' = 'search/update_results'
+export const UPDATE_SEARCH_RESULTS: 'search/update_results' =
+  'search/update_results'
 export type RA_UpdateSearchResults = {
   type: typeof UPDATE_SEARCH_RESULTS
   results: LocationData[]
 }
 
-export const SELECT_SEARCH_RESULT: 'search/select_result' = 'search/select_result'
+export const SELECT_SEARCH_RESULT: 'search/select_result' =
+  'search/select_result'
 export type RA_SelectSearchResult = {
   type: typeof SELECT_SEARCH_RESULT
   result: LocationData
 }
 
-export const CLEAR_SEARCH_RESULTS: 'search/clear_results' = 'search/clear_results'
+export const CLEAR_SEARCH_RESULTS: 'search/clear_results' =
+  'search/clear_results'
 export type RA_ClearSearchResults = {
   type: typeof CLEAR_SEARCH_RESULTS
 }
@@ -107,7 +111,9 @@ export const updateLocation = (
   data: data,
 })
 
-export const triggerUpdateLocation = (uid: string): RA_TriggerUpdateLocation => ({
+export const triggerUpdateLocation = (
+  uid: string,
+): RA_TriggerUpdateLocation => ({
   type: TRIGGER_UPDATE_LOCATION,
   uid: uid,
 })

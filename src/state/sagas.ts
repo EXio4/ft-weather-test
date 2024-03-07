@@ -109,7 +109,12 @@ function* triggerMyLocation(action: RA_AssignAPIKey) {
 
     // const weather: WeatherApiResponse = yield call(getWeatherData, owmKey, position.lat, position.lon)
     // yield put(addLocation(convertMyLocationResultToLocationData(position), convertApiResponseToPureWeatherData(weather)))
-    yield put(addLocation('my-location', convertMyLocationResultToLocationData(position)))
+    yield put(
+      addLocation(
+        'my-location',
+        convertMyLocationResultToLocationData(position),
+      ),
+    )
   } catch (err) {
     console.error('error', err)
   }
@@ -174,8 +179,9 @@ function* handleTriggerUpdate(action: RA_TriggerLocationUpdate) {
       return
     }
 
-    const existingLocation: WeatherItem | undefined = yield select((state: ReduxState) =>
-      state.locations.find((loc) => loc.uid === action.uid),
+    const existingLocation: WeatherItem | undefined = yield select(
+      (state: ReduxState) =>
+        state.locations.find((loc) => loc.uid === action.uid),
     )
     if (!existingLocation) {
       // location was deleted while waiting for response or the query was invalid
@@ -188,7 +194,7 @@ function* handleTriggerUpdate(action: RA_TriggerLocationUpdate) {
       existingLocation.location.latitude,
       existingLocation.location.longitude,
     )
-  
+
     yield put(
       updateLocation(
         action.uid,
@@ -196,7 +202,6 @@ function* handleTriggerUpdate(action: RA_TriggerLocationUpdate) {
         convertApiResponseToPureWeatherData(weather),
       ),
     )
-
   } catch (err) {
     console.error('error', err)
   }

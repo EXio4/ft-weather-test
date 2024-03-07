@@ -42,7 +42,7 @@ const Main = () => {
   const currentlySelected: WeatherItem | undefined = weatherItems.find(
     (item) => item.uid === currentlySelectedUid,
   )
-  
+
   const deleteWeather = (uid: string) => {
     dispatch(removeLocation(uid))
   }
@@ -73,7 +73,11 @@ const Main = () => {
               onClick={() => setCurrentlySelectedUid(item.uid)}
               secondaryAction={
                 item.type === 'search' ? (
-                  <IconButton edge="end" aria-label="delete" onClick={() => deleteWeather(item.uid)}>
+                  <IconButton
+                    edge='end'
+                    aria-label='delete'
+                    onClick={() => deleteWeather(item.uid)}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 ) : null

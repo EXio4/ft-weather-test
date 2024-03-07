@@ -1,4 +1,14 @@
-import { Box, Card, CardContent, CardHeader, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material'
+import {
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { CurrentWeatherData, WeatherItem, WeatherEntry } from '../types'
 import RefreshIcon from '@mui/icons-material/Refresh'
@@ -65,17 +75,22 @@ const DailyWeather = ({ data }: { data: WeatherEntry[] }) => {
   )
 }
 
-const LocationInfo = ({ refreshWeather, location }: { refreshWeather: () => void, location: WeatherItem['location'] }) => {
+const LocationInfo = ({
+  refreshWeather,
+  location,
+}: {
+  refreshWeather: () => void
+  location: WeatherItem['location']
+}) => {
   return (
     <List>
-      <ListItem key='data'
-          secondaryAction={
-            <IconButton edge="end" aria-label="refresh"
-              onClick={refreshWeather}
-            >
-              <RefreshIcon />
-            </IconButton>
-          }
+      <ListItem
+        key='data'
+        secondaryAction={
+          <IconButton edge='end' aria-label='refresh' onClick={refreshWeather}>
+            <RefreshIcon />
+          </IconButton>
+        }
       >
         <ListItemText
           primary={location.name}
@@ -103,9 +118,10 @@ const UI = ({ weather }: { weather: WeatherItem }) => {
   return (
     <Grid container spacing={2}>
       <Grid xs={12} md={6}>
-        <LocationInfo refreshWeather={
-          () => refreshWeather(weather.uid)
-        } location={weather.location} />
+        <LocationInfo
+          refreshWeather={() => refreshWeather(weather.uid)}
+          location={weather.location}
+        />
       </Grid>
       <Grid xs={12} md={6}>
         <Card
