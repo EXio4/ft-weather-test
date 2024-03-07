@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { LocationData, PureWeatherData } from '../types'
+import { LocationType, LocationData, PureWeatherData } from '../types'
 
 export type RA_AssignAPIKey = {
   type: 'apiKeys/assign'
@@ -64,6 +64,7 @@ export const assignAPIKey = (openWeatherMap: string): RA_AssignAPIKey => ({
 })
 
 export const addLocation = (
+  kind: LocationType,
   location: LocationData,
   data?: PureWeatherData,
 ): RA_AddLocation => ({

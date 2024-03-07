@@ -36,7 +36,7 @@ export const locationsReducer = (
       return [
         ...state,
         {
-          type: 'search',
+          type: action.kind,
           uid: action.uid,
           location: action.location,
           data: action.data,

@@ -107,7 +107,7 @@ export default function WeatherAppBar({
               filterOptions={(x) => x}
               onChange={(e, newValue) => {
                 if (newValue) {
-                  dispatch(addLocation(newValue))
+                  dispatch(addLocation('search', newValue))
                   dispatch(clearSearchResults())
                 }
               }}

@@ -106,7 +106,7 @@ function* triggerMyLocation(action: RA_AssignAPIKey) {
 
     // const weather: WeatherApiResponse = yield call(getWeatherData, owmKey, position.lat, position.lon)
     // yield put(addLocation(convertMyLocationResultToLocationData(position), convertApiResponseToPureWeatherData(weather)))
-    yield put(addLocation(convertMyLocationResultToLocationData(position)))
+    yield put(addLocation('my-location', convertMyLocationResultToLocationData(position)))
   } catch (err) {
     console.error('error', err)
   }
